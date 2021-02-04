@@ -21,6 +21,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import Homepage from "@/containers/Homepage";
 import ExamOptions from "@/containers/ExamOptions";
 import ExamsPanel from "@/containers/ExamsPanel";
+import ExamCreate from "@/containers/ExamCreate";
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
@@ -41,8 +42,9 @@ const router = new Router({
     base: __dirname,
     routes: [
         {path: '/', component: Homepage, name: "Homepage", props: true},
-        {path: '/dev', component: ExamOptions, name: "ExamOptions", props: true},
-        {path: '/exams', component: ExamsPanel, name: "Exams", props: true}
+        {path: '/examoptions', component: ExamOptions, name: "ExamOptions", props: true},
+        {path: '/exams', component: ExamsPanel, name: "Exams", props: true},
+        {path: '/examcreate', component: ExamCreate, name: "ExamCreate", props: true}
     ]
 });
 

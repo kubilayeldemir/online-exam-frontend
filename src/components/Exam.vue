@@ -1,5 +1,6 @@
 <template>
-  <b-card-group deck>
+  <div>
+    <b-card-group deck>
     <b-card
         :footer="'Teacher: '+exam.teacher_name+' '+exam.teacher_surname"
         :header='exam.lesson'
@@ -14,9 +15,10 @@
         <span>End: {{ exam.enddate | moment("dddd, MMMM Do YYYY,h:mm:ss a") }}</span>
 
       </b-card-text>
-      <b-button href="#" variant="primary">Take Exam</b-button>
+      <b-button variant="primary">Take Exam</b-button>
     </b-card>
   </b-card-group>
+  </div>
 </template>
 
 

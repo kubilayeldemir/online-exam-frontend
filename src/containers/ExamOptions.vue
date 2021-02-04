@@ -1,5 +1,6 @@
 <template>
   <div class="container" style="margin-top:50px;margin-left: 15%;margin-right: 50px">
+    <b-button @click="log" variant="primary">Print API URL</b-button>
 
     <div style="">
       <Sidebar></Sidebar>
@@ -36,14 +37,16 @@
                @change="setOptions">
       </div>
     </div>
+    <label style="margin-top: 10px;" for="quantity">Question Number(between 1 and 100):</label>
+    <input type="number" id="quantity" name="quantity" v-model.number="exam.questionNumber" @change="setOptions" min="1" max="100">
 
     <br>
     <my-date text="Start date and time of your exam"></my-date>
 
     <p class="lead">
-      <router-link :to="{name:'createexam',params:{examisim : examName}}"
+      <router-link :to="{name:'ExamCreate',params:{examName : exam.name}}"
                    style="color: aliceblue;text-decoration: none">
-        <a class="btn btn-primary btn-lg" role="button" style="float: right;" @click="console.log('...')">
+        <a class="btn btn-primary btn-lg" role="button" style="float: right;">
           Next step
         </a>
       </router-link>
@@ -54,31 +57,32 @@
 <script>
 import MyDate from "@/components/myDate";
 import Sidebar from "@/components/Sidebar";
-import {mapActions, mapMutations} from "vuex";
+import { mapMutations } from "vuex";
 
 export default {
   data() {
     return {
       exam: {
         name: "",
-        lesson: ""
+        lesson: "",
+        questionNumber: 0
       }
     }
   },
 
   methods: {
+    log(){
+      console.log(process.env.VUE_APP_API_URL)
+    },
     ...mapMutations([
       "setExamOptions"
     ]),
-    ...mapActions([
-      "postExam"
-    ]),
     setOptions() {
       this.$store.commit("setExamOptions", this.exam)
-    },
-    async sendExam(){
-      await this.$store.dispatch("postExam");
     }
+    /*async sendExam(){
+      await this.$store.dispatch("postExam");
+    }*/
   },
   computed: {
 
