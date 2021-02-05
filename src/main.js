@@ -23,6 +23,7 @@ import ExamOptions from "@/containers/ExamOptions";
 import ExamsPanel from "@/containers/ExamsPanel";
 import ExamCreate from "@/containers/ExamCreate";
 import ExamPage from "@/containers/ExamPage";
+import ExamURLPage from "@/containers/ExamURLPage";
 
 
 Vue.use(BootstrapVue)
@@ -48,6 +49,7 @@ const router = new Router({
         {path: '/exams', component: ExamsPanel, name: "Exams", props: true},
         {path: '/examcreate', component: ExamCreate, name: "ExamCreate", props: true},
         {path: '/exampage', component: ExamPage, name: "ExamPage", props: true},
+        {path: '/exam/:url', component: ExamURLPage, name: "ExamURLPage", props: true}
     ]
 });
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="jumbotron">
       <h1 class="display-4">Exam: {{ Exam.name }}-{{ Exam.lesson }}</h1>
       <h5>Start: {{ Exam.startdate | moment("d, MMM,h:mm") }} - End:

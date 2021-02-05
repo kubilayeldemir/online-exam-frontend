@@ -102,6 +102,18 @@ const actions = {
         commit("setExam", data);
         return data;
     },
+    async getExam(examId) {
+        const {data} = await api.get(`exams/${examId}`)
+        if (data) {
+            return data;
+        }
+    },
+    async getExamByURL({commit}, URL) {
+        const {data} = await api.get(`exams/url/${URL}`)
+        console.log(data[0].exam_id)
+        commit("setExamToTakeId", data[0].exam_id)
+        return data;
+    },
     async postExam({commit, state}) {
         const {data} = await api.post('exams', state.examToCreate);
         if (data) {
@@ -112,12 +124,6 @@ const actions = {
         const {data} = await api.post(`exams/${state.createdExam.exam_id}/questions`, state.examToCreate.questions);
         if (data) {
             commit('setCreatedQuestions', data);
-            return data;
-        }
-    },
-    async getExam(examId) {
-        const {data} = await api.get(`exams/${examId}`)
-        if (data) {
             return data;
         }
     },

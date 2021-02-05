@@ -11,8 +11,6 @@
       <Exam :exam="exam"></Exam>
       <br>
     </div>
-
-
   </div>
 </template>
 

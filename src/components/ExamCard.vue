@@ -28,7 +28,7 @@
 
 <script>
 
-
+//TO DO SOLVE EXAM ID WHEN CLICK TAKE EXAM
 export default {
   props: {
     exam: Object
@@ -40,7 +40,6 @@ export default {
     setExamId(id) {
       this.$store.commit('setExamToTakeId', id)
     }
-
   },
   name: 'ExamCard',
   components: {},
