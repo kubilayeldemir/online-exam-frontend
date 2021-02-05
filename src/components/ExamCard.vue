@@ -6,7 +6,6 @@
               :title="exam.name"
               footer-tag="footer"
               header-tag="header"
-              @click="setExamId(exam.exam_id)"
       >
 
         <b-card-text>
@@ -16,7 +15,7 @@
 
         </b-card-text>
         <router-link :to="{name:'ExamPage',params:{examId : this.exam.exam_id, Exam:exam}}">
-          <a class="btn btn-primary btn-lg" role="button" style="float: right;">
+          <a  class="btn btn-primary btn-lg" role="button" @click="setExamId(exam.exam_id)" style="float: right;">
             Take Exam!
           </a>
         </router-link>
@@ -28,7 +27,6 @@
 
 <script>
 
-//TO DO SOLVE EXAM ID WHEN CLICK TAKE EXAM
 export default {
   props: {
     exam: Object
