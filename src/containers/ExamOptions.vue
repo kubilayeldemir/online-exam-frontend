@@ -1,6 +1,5 @@
 <template>
   <div class="container" style="margin-top:50px;margin-left: 15%;margin-right: 50px">
-    <b-button @click="log" variant="primary">Print API URL</b-button>
 
     <div style="">
       <Sidebar></Sidebar>
@@ -37,8 +36,9 @@
                @change="setOptions">
       </div>
     </div>
-    <label style="margin-top: 10px;" for="quantity">Question Number(between 1 and 100):</label>
-    <input type="number" id="quantity" name="quantity" v-model.number="exam.questionNumber" @change="setOptions" min="1" max="100">
+    <label for="quantity" style="margin-top: 10px;">Question Number(between 1 and 100):</label>
+    <input id="quantity" v-model.number="exam.questionNumber" max="100" min="1" name="quantity" type="number"
+           @change="setOptions">
 
     <br>
     <my-date text="Start date and time of your exam"></my-date>
@@ -57,7 +57,7 @@
 <script>
 import MyDate from "@/components/myDate";
 import Sidebar from "@/components/Sidebar";
-import { mapMutations } from "vuex";
+import {mapMutations} from "vuex";
 
 export default {
   data() {
@@ -71,9 +71,6 @@ export default {
   },
 
   methods: {
-    log(){
-      console.log(process.env.VUE_APP_API_URL)
-    },
     ...mapMutations([
       "setExamOptions"
     ]),
@@ -84,9 +81,7 @@ export default {
       await this.$store.dispatch("postExam");
     }*/
   },
-  computed: {
-
-  },
+  computed: {},
 
   name: 'ExamOptions',
   components: {Sidebar, MyDate}

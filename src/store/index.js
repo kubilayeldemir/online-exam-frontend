@@ -14,14 +14,14 @@ const getDefaultState = () => {
         exams: [],
         createdExam: {},
         examToCreate: {
-            exam_id:30,
+            exam_id: 30,
             teacher_id: 2,
             name: "",
             lesson: "",
             startdate: "",
             enddate: "",
-            questionNumber:0,
-            questions:[]
+            questionNumber: 0,
+            questions: []
         }
     }
 }
@@ -34,25 +34,33 @@ const state = {
     },
     exams: [],
     createdExam: {},
-    createdQuestions:{},
+    createdQuestions: {},
+    examToTake: {
+        exam_id: 0,
+        questions: [],
+        answers: []
+    },
     examToCreate: {
-        exam_id:0,
+        exam_id: 0,
         teacher_id: 2,
         name: "",
         lesson: "",
         startdate: "",
         enddate: "",
-        questionNumber:0,
-        questions:[]
+        questionNumber: 0,
+        questions: []
     }
 };
 const getters = {};
 const mutations = {
-    resetState (state) {
+    resetState(state) {
         Object.assign(state, getDefaultState())
     },
     setExam(state, examJson) {
         state.exams = examJson;
+    },
+    setExamToTakeId(state, id) {
+        state.examToTake.exam_id = id;
     },
     setCreatedExam(state, exam) {
         state.createdExam = exam;
@@ -66,21 +74,24 @@ const mutations = {
         state.examToCreate.startdate = examDate.startDate;
         state.examToCreate.enddate = examDate.endDate;
     },
-    pushToQuestionList(state,question){
-        question.exam_id=state.examToCreate.exam_id;
-        question.teacher_id=state.user.user_id;
+    pushToQuestionList(state, question) {
+        question.exam_id = state.examToCreate.exam_id;
+        question.teacher_id = state.user.user_id;
         console.log(question)
         state.examToCreate.questions.push(question);
     },
-    setCreatedQuestions(state,questions){
-        state.createdQuestions=questions;
+    pushToAnswerList(state, answer) {
+        state.examToTake.answers.push(answer);
     },
-    resetQuestions(state){
-        state.examToCreate.questions.length=0;
+    setCreatedQuestions(state, questions) {
+        state.createdQuestions = questions;
+    },
+    resetQuestions(state) {
+        state.examToCreate.questions.length = 0;
     }
 };
 const actions = {
-    resetStorageState ({ commit }) {
+    resetStorageState({commit}) {
         commit('resetState')
     },
     async getExams({commit}) {
@@ -88,16 +99,31 @@ const actions = {
         commit("setExam", data);
         return data;
     },
-    async postExam({commit,state}) {
+    async postExam({commit, state}) {
         const {data} = await api.post('exams', state.examToCreate);
         if (data) {
             commit("setCreatedExam", data)
         }
     },
-    async postQuestions({commit,state}){
-        const {data} = await api.post(`exams/${state.createdExam.exam_id}/questions`,state.examToCreate.questions);
-        if (data){
-            commit('setCreatedQuestions',data);
+    async postQuestions({commit, state}) {
+        const {data} = await api.post(`exams/${state.createdExam.exam_id}/questions`, state.examToCreate.questions);
+        if (data) {
+            commit('setCreatedQuestions', data);
+            return data;
+        }
+    },
+    async getExam(examId) {
+        const {data} = await api.get(`exams/${examId}`)
+        if (data) {
+            return data;
+        }
+    },
+    async getQuestions({state}) {
+        var url = `exams/${state.examToTake.exam_id}/questions`
+        const {data} = await api.get(url)
+        if (data) {
+            console.log(data)
+            console.log({data})
             return data;
         }
     }
