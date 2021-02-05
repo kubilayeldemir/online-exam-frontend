@@ -15,7 +15,7 @@
           <span>End: {{ exam.enddate | moment("dddd, MMMM Do YYYY,h:mm:ss a") }}</span>
 
         </b-card-text>
-        <router-link :to="{name:'ExamPage',params:{examId : this.exam.exam_id}}">
+        <router-link :to="{name:'ExamPage',params:{examId : this.exam.exam_id, Exam:exam}}">
           <a class="btn btn-primary btn-lg" role="button" style="float: right;">
             Take Exam!
           </a>
@@ -45,7 +45,6 @@ export default {
   name: 'ExamCard',
   components: {},
   mounted() {
-    console.log(this.exam.exam_id);
   }
 }
 </script>

@@ -27,7 +27,6 @@
         <p>{{ question.option_5 }}</p>
       </b-form-radio>
     </b-form-group>
-    <button @click="pushQuestion">Bu soruyu listeye pushla.</button>
   </div>
 </template>
 
@@ -42,18 +41,19 @@ export default {
       answer: {
         selected_option: "",
         question_id: 0,
-        exam_id: 0
+        exam_id: 0,
+        student_id: 0
       }
     }
   },
   computed: {
     ...mapState({
-      exam_id: state => state.examToTake.exam_id
+      exam_id: state => state.examToTake.exam_id,
+      student_id: state => state.user.user_id
     })
   },
   methods: {
-
-    pushQuestion() {
+    pushAnswer() {
       this.$store.commit("pushToAnswerList", this.answer);
     }
   },
@@ -71,6 +71,7 @@ export default {
   created() {
     this.answer.question_id = this.question.question_id;
     this.answer.exam_id = this.question.exam_id;
+    this.answer.student_id = this.student_id;
   }
 
 }

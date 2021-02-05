@@ -3,27 +3,27 @@
 
     <Sidebar></Sidebar>
     <div class="jumbotron">
-      <h1 class="display-4">Exam: {{examisim}}</h1>
+      <h1 class="display-4">Exam: {{ examisim }}</h1>
       <p class="lead"></p>
       <hr class="my-4">
 
     </div>
 
     <div>
-      <question :index="index" v-for="index in examToCreate.questionNumber" :key="index" ref="questions"></question>
+      <question v-for="index in examToCreate.questionNumber" :key="index" ref="questions" :index="index"></question>
     </div>
-<!--<button @click="printRef">Ref print ve sıfırla</button>-->
+    <!--<button @click="printRef">Ref print ve sıfırla</button>-->
     <button @click="sendExam">Create Exam And Post questions.</button>
     <button @click="sendQuestions">Post questions.</button>
 
-<!--    <p class="lead">-->
-<!--      <router-link :to="{name:'Succesfull'}"-->
-<!--                   style="color: aliceblue;text-decoration: none">-->
-<!--        <a class="btn btn-primary btn-lg" style="float: right;" role="button">-->
-<!--          Create Exam-->
-<!--        </a>-->
-<!--      </router-link>-->
-<!--    </p>-->
+    <!--    <p class="lead">-->
+    <!--      <router-link :to="{name:'Succesfull'}"-->
+    <!--                   style="color: aliceblue;text-decoration: none">-->
+    <!--        <a class="btn btn-primary btn-lg" style="float: right;" role="button">-->
+    <!--          Create Exam-->
+    <!--        </a>-->
+    <!--      </router-link>-->
+    <!--    </p>-->
 
   </div>
 </template>
@@ -40,36 +40,35 @@ export default {
       count: 5
     }
   },
-computed:{
+  computed: {
     ...mapState(["examToCreate"])
-},
+  },
   methods: {
-    createExamPostQuestions(){
+    createExamPostQuestions() {
 
     },
-    printRef(){
+    printRef() {
       this.$store.dispatch("resetStorageState");
       console.log(this.$refs.questions);
 
     },
-    async sendExam(){
+    async sendExam() {
       await this.$store.dispatch("postExam");
     },
-    async sendQuestions(){
-      console.log("klslkjklj")
+    async sendQuestions() {
       this.$store.commit('resetQuestions');
 
-      for (var i = 0; i < this.$refs.questions.length; i++){
+      for (let i = 0; i < this.$refs.questions.length; i++) {
         this.$refs.questions[i].pushQuestion();
       }
       console.log(this.examToCreate)
       await this.$store.dispatch("postQuestions")
     }
   },
-  props:{
-    examisim:String,
-    examStart:String,
-    examEnd:String,
+  props: {
+    examisim: String,
+    examStart: String,
+    examEnd: String,
   },
   name: 'ExamCreate',
   components: {

@@ -24,6 +24,7 @@ import ExamsPanel from "@/containers/ExamsPanel";
 import ExamCreate from "@/containers/ExamCreate";
 import ExamPage from "@/containers/ExamPage";
 
+
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(require('vue-moment'));
@@ -46,7 +47,7 @@ const router = new Router({
         {path: '/examoptions', component: ExamOptions, name: "ExamOptions", props: true},
         {path: '/exams', component: ExamsPanel, name: "Exams", props: true},
         {path: '/examcreate', component: ExamCreate, name: "ExamCreate", props: true},
-        {path: '/exampage', component: ExamPage, name: "ExamPage", props: true}
+        {path: '/exampage', component: ExamPage, name: "ExamPage", props: true},
     ]
 });
 

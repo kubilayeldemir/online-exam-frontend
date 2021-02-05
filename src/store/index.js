@@ -80,6 +80,9 @@ const mutations = {
         console.log(question)
         state.examToCreate.questions.push(question);
     },
+    resetAnswerList(state) {
+        state.examToTake.answers.length = 0;
+    },
     pushToAnswerList(state, answer) {
         state.examToTake.answers.push(answer);
     },
@@ -119,13 +122,19 @@ const actions = {
         }
     },
     async getQuestions({state}) {
-        var url = `exams/${state.examToTake.exam_id}/questions`
+        let url = `exams/${state.examToTake.exam_id}/questions`
         const {data} = await api.get(url)
         if (data) {
-            console.log(data)
-            console.log({data})
             return data;
         }
+    },
+    async postAnswers({state}) {
+        let url = `exams/${state.examToTake.answers[0].exam_id}/answers`;
+        const {data} = await api.post(url, state.examToTake.answers);
+        if (data) {
+            return data;
+        }
+
     }
 };
 
