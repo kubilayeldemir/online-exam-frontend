@@ -33,6 +33,8 @@ const state = {
         user_name: ""
     },
     exams: [],
+    oldExams:[],
+    futureExams:[],
     createdExam: {},
     createdQuestions: {},
     examToTake: {
@@ -57,7 +59,9 @@ const mutations = {
         Object.assign(state, getDefaultState())
     },
     setExam(state, examJson) {
-        state.exams = examJson;
+        state.exams = examJson.active_exams;
+        state.oldExams = examJson.old_exams;
+        state.futureExams = examJson.future_exams;
     },
     setExamToTakeId(state, id) {
         state.examToTake.exam_id = id;

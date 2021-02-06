@@ -6,11 +6,28 @@
     <!--    <p class="lead" style="color: black;">On this page you can set exam's name, start-end date, people who will attend exam...</p>-->
     <!--    <hr class="my-4">-->
     <!--  </div>-->
-
+    <h1>Active Exams:</h1>
     <div v-for="exam in exams" :key="exam.exam_id">
       <Exam :exam="exam"></Exam>
       <br>
     </div>
+
+    <b-button v-b-toggle="'collapse-2'" class="m-1">Future Exams</b-button>
+    <b-collapse style="" id="collapse-2">
+      <div v-for="exam in futureExams" :key="exam.exam_id">
+        <Exam :is-active="false" :exam="exam"></Exam>
+        <br>
+      </div>
+    </b-collapse>
+<br>
+    <b-button v-b-toggle="'collapse-3'" class="m-1">Old Exams</b-button>
+    <b-collapse style="" id="collapse-3">
+      <div v-for="exam in oldExams" :key="exam.exam_id">
+        <Exam :is-active="false" :exam="exam"></Exam>
+        <br>
+      </div>
+    </b-collapse>
+
   </div>
 </template>
 
@@ -25,7 +42,9 @@ export default {
   },
   computed: {
     ...mapState({
-      exams: state => state.exams
+      exams: state => state.exams,
+      oldExams: state => state.oldExams,
+      futureExams: state => state.futureExams
     })
   },
   methods: {
