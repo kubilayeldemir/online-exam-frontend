@@ -9,3 +9,9 @@ export const api = axios.create({
         'Access-Control-Allow-Credentials':true
     },
 })
+
+api.interceptors.request.use(function (config) {
+    const auth = localStorage.getItem('Auth');
+    config.headers.Auth =  auth;
+    return config;
+});

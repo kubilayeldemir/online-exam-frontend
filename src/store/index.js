@@ -26,6 +26,7 @@ const getDefaultState = () => {
 
 const state = {
     user: null,
+    secret:null,
     exams: [],
     oldExams:[],
     futureExams:[],
@@ -51,9 +52,8 @@ const getters = {
     isAuthenticated: state => !!state.user
 };
 const mutations = {
-    setUser(state) {
-        var user = {};
-        user.user_id = 2;
+    setUser(state,user) {
+
         state.user = user;
     },
     resetState(state) {
@@ -80,7 +80,7 @@ const mutations = {
         state.examToCreate.enddate = examDate.endDate;
     },
     pushToQuestionList(state, question) {
-        question.exam_id = state.examToCreate.exam_id;
+        question.exam_id = state.createdExam.exam_id;
         question.teacher_id = state.user.user_id;
         console.log(question)
         state.examToCreate.questions.push(question);
@@ -99,6 +99,14 @@ const mutations = {
     }
 };
 const actions = {
+    async login({commit},inputObj){
+        const data = await api.post('login',inputObj.input).catch((error)=>{
+            return error.response
+        })
+        //console.log(data);
+        commit('setUser',data.data)
+        return data;
+    },
     resetStorageState({commit}) {
         commit('resetState')
     },

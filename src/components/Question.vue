@@ -22,7 +22,6 @@
         <input v-model="question.option_5" type="text" class="form-control">
       </b-form-radio>
     </b-form-group>
-<button @click="pushQuestion">PUSHLA BABAM</button>
   </div>
 
 

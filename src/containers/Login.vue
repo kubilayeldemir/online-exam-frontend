@@ -6,7 +6,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Mail</span>
         </div>
-        <input v-model="input.username" type="text" class="form-control" placeholder="ogretmen@ege.edu.tr" aria-label="Username" aria-describedby="basic-addon1">
+        <input v-model="input.mail" type="text" class="form-control" placeholder="ogretmen@ege.edu.tr" aria-label="Username" aria-describedby="basic-addon1">
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -29,8 +29,8 @@ export default {
   data() {
     return {
       input: {
-        username: "",
-        password: ""
+        mail: "",
+        password: "",
       }
     }
   },
@@ -39,22 +39,38 @@ export default {
   },
   methods: {
 
-    login() {
-      this.$store.commit('setUser');
-      this.$router.push(localStorage.getItem('pathToLoadAfterLogin') || 'somedefaultroute');
+    async login() {
+
+      var temp = {};
+
+      var AuthKey = `${this.input.mail}:${this.input.password}`;
+      console.log(AuthKey)
+      var crypto = await this.CryptoJS.AES.encrypt(AuthKey, "sifrecisifrecii").toString();
+      console.log(crypto)
+      temp.input=this.input;
+      temp.secret=crypto;
+      var result = await this.$store.dispatch('login',temp)
+      if(result.status===401){
+        this.$swal({
+          title: 'Error!',
+          text: 'Wrong mail or password!',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      }
+      else{
+        console.log(result)
+        localStorage.setItem('Auth', crypto)
+        this.$router.push(localStorage.getItem('pathToLoadAfterLogin') || '/');
+      }
 
 
-      // this.$swal({
-        //   title: 'Error!',
-        //   text: 'Wrong mail or password!',
-        //   icon: 'error',
-        //   confirmButtonText: 'OK'
-        // });
+
+
     }
 
   },
   created(){
-      console.log(this.CryptoJS.AES.encrypt("kubilayeldemir@hotmail.com:admin5432", "sifrecisifrecii").toString())
   }
 }
 </script>
