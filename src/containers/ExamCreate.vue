@@ -49,8 +49,6 @@ export default {
     },
     printRef() {
       this.$store.dispatch("resetStorageState");
-      console.log(this.$refs.questions);
-
     },
     async sendExam() {
       await this.$store.dispatch("postExam");

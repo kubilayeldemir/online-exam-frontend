@@ -7,10 +7,7 @@ Vue.use(Vuex);
 
 const getDefaultState = () => {
     return {
-        user: {
-            user_id: 2,
-            user_name: ""
-        },
+        user: null,
         exams: [],
         createdExam: {},
         examToCreate: {
@@ -28,10 +25,7 @@ const getDefaultState = () => {
 
 
 const state = {
-    user: {
-        user_id: 2,
-        user_name: ""
-    },
+    user: null,
     exams: [],
     oldExams:[],
     futureExams:[],
@@ -53,8 +47,15 @@ const state = {
         questions: []
     }
 };
-const getters = {};
+const getters = {
+    isAuthenticated: state => !!state.user
+};
 const mutations = {
+    setUser(state) {
+        var user = {};
+        user.user_id = 2;
+        state.user = user;
+    },
     resetState(state) {
         Object.assign(state, getDefaultState())
     },
@@ -114,7 +115,6 @@ const actions = {
     },
     async getExamByURL({commit}, URL) {
         const {data} = await api.get(`exams/url/${URL}`)
-        console.log(data[0].exam_id)
         commit("setExamToTakeId", data[0].exam_id)
         return data;
     },

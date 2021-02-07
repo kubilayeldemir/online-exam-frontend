@@ -85,25 +85,7 @@ export default {
     ])
 
   },
-  watch: {
-    // whenever question changes, this function will run
-    /*date: function (date) {
-      console.log(this.forbiddenDates[0]);
-      var i;
-      for (i = 0; i < this.forbiddenDates.length; i++) {
-        if (date.toString().localeCompare(this.forbiddenDates[i]) === 0) {
-          this.date = null;
-          this.date2 = null;
-          this.$swal({
-            title: 'Error!',
-            text: 'There is already an exam at this date, please select a different date',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-        }
-      }
-    }*/
-  }
+  watch: {}
 
 }
 </script>

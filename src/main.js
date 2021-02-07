@@ -24,8 +24,10 @@ import ExamsPanel from "@/containers/ExamsPanel";
 import ExamCreate from "@/containers/ExamCreate";
 import ExamPage from "@/containers/ExamPage";
 import ExamURLPage from "@/containers/ExamURLPage";
+import Login from "@/containers/Login";
+import VueCryptojs from 'vue-cryptojs'
 
-
+Vue.use(VueCryptojs)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(require('vue-moment'));
@@ -44,13 +46,40 @@ const router = new Router({
     mode: 'history',
     base: __dirname,
     routes: [
-        {path: '/', component: Homepage, name: "Homepage", props: true},
-        {path: '/examoptions', component: ExamOptions, name: "ExamOptions", props: true},
-        {path: '/exams', component: ExamsPanel, name: "Exams", props: true},
-        {path: '/examcreate', component: ExamCreate, name: "ExamCreate", props: true},
-        {path: '/exampage', component: ExamPage, name: "ExamPage", props: true},
-        {path: '/exam/:url', component: ExamURLPage, name: "ExamURLPage", props: true}
+        {path: '/login', component: Login, name: "Login", props: true, meta: { guest: true }},
+        {path: '/', component: Homepage, name: "Homepage", props: true, meta: { requiresAuth: true }},
+        {path: '/examoptions', component: ExamOptions, name: "ExamOptions", props: true, meta: { requiresAuth: true }},
+        {path: '/exams', component: ExamsPanel, name: "Exams", props: true, meta: { requiresAuth: true }},
+        {path: '/examcreate', component: ExamCreate, name: "ExamCreate", props: true, meta: { requiresAuth: true }},
+        {path: '/exampage', component: ExamPage, name: "ExamPage", props: true, meta: { requiresAuth: true }},
+        {path: '/exam/:url', component: ExamURLPage, name: "ExamURLPage", props: true, meta: { requiresAuth: true}}
     ]
+});
+
+router.beforeEach((to,from,next)=>{
+    if(to.matched.some(record => record.meta.requiresAuth)){
+        if(store.getters.isAuthenticated){
+            next()
+            return
+        }
+        localStorage.setItem('pathToLoadAfterLogin', to.path)
+        console.log(to);
+        next('/login')
+    } else{
+        next()
+    }
+})
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some((record) => record.meta.guest)) {
+        if (store.getters.isAuthenticated) {
+            next();
+            return;
+        }
+        next();
+    } else {
+        next();
+    }
 });
 
 Vue.config.productionTip = false

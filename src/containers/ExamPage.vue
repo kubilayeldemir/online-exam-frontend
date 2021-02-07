@@ -49,7 +49,6 @@ export default {
                 'Your answers has been sent.',
                 'success'
             )
-            console.log("Mal Bacım" + res);
             console.log(res);
           }).catch(err => {
             if (err.response.status !== 200) {
@@ -70,8 +69,7 @@ export default {
       for (let i = 0; i < this.$refs.questionsRef.length; i++) {
         this.$refs.questionsRef[i].pushAnswer();
       }
-      let res = await this.$store.dispatch('postAnswers');
-      console.log("sea" + res);
+      await this.$store.dispatch('postAnswers');
 
     },
     async getExamQuestions() {

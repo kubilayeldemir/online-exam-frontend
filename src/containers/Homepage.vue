@@ -47,16 +47,6 @@ export default {
     Sidebar
 
   },
-  // created() {
-  //   axios.get(`http://localhost:3000/api/users`)
-  //       .then(response => {
-  //         // JSON responses are automatically parsed.
-  //         console.log(response.data);
-  //       })
-  //       .catch(e => {
-  //         this.errors.push(e)
-  //       })
-  // }
 }
 </script>
 <style scoped>
