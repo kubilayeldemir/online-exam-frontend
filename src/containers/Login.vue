@@ -4,18 +4,20 @@
       <h1>Login</h1>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Mail</span>
+          <span id="basic-addon1" class="input-group-text">Mail</span>
         </div>
-        <input v-model="input.mail" type="text" class="form-control" placeholder="ogretmen@ege.edu.tr" aria-label="Username" aria-describedby="basic-addon1">
+        <input v-model="input.mail" aria-describedby="basic-addon1" aria-label="Username" class="form-control"
+               placeholder="ogretmen@ege.edu.tr" type="text">
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1" >Password </span>
+          <span id="basic-addon1" class="input-group-text">Password </span>
         </div>
-        <input v-model="input.password" v-on:keyup.enter="login()" type="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+        <input v-model="input.password" aria-describedby="basic-addon1" aria-label="Username" class="form-control"
+               placeholder="Password" type="password" v-on:keyup.enter="login()">
       </div>
       <div style="color: aliceblue;text-decoration: none">
-        <button style="margin-left: 200px" v-on:click="login()" type="button" class="btn btn-light">Login</button>
+        <button class="btn btn-light" style="margin-left: 200px" type="button" v-on:click="login()">Login</button>
       </div>
 
 
@@ -34,9 +36,7 @@ export default {
       }
     }
   },
-  computed:{
-
-  },
+  computed: {},
   methods: {
 
     async login() {
@@ -44,33 +44,27 @@ export default {
       var temp = {};
 
       var AuthKey = `${this.input.mail}:${this.input.password}`;
-      console.log(AuthKey)
       var crypto = await this.CryptoJS.AES.encrypt(AuthKey, "sifrecisifrecii").toString();
-      console.log(crypto)
-      temp.input=this.input;
-      temp.secret=crypto;
-      var result = await this.$store.dispatch('login',temp)
-      if(result.status===401){
+      temp.input = this.input;
+      temp.secret = crypto;
+      var result = await this.$store.dispatch('login', temp)
+      if (result.status === 401) {
         this.$swal({
           title: 'Error!',
           text: 'Wrong mail or password!',
           icon: 'error',
           confirmButtonText: 'OK'
         });
-      }
-      else{
-        console.log(result)
+      } else {
         localStorage.setItem('Auth', crypto)
         this.$router.push(localStorage.getItem('pathToLoadAfterLogin') || '/');
       }
 
 
-
-
     }
 
   },
-  created(){
+  created() {
   }
 }
 </script>
@@ -85,13 +79,14 @@ export default {
   margin-top: 200px;
   padding: 20px;
 }
+
 .selam {
-  position:fixed;
-  width:100%;
-  height:100%;
-  top:0px;
-  left:0px;
-  z-index:1000;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
   background: url('../../src/assets/background.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;

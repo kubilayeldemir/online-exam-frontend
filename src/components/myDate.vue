@@ -3,17 +3,12 @@
     <h5 class="d-flex justify-content-center">{{ text }}</h5>
     <vc-date-picker
         v-model="examdate.startDate"
-        @input="setDate"
-        :model-config="modelConfig"
-        :disabled-dates='[
-    {
-      start: new Date(2021, 1, 10),
-      end: new Date(2021, 1, 10)
-    }]'
         :min-date='new Date()'
+        :model-config="modelConfig"
         class="d-flex justify-content-center"
         is24hr
-        mode="dateTime" >
+        mode="dateTime"
+        @input="setDate">
       <template v-slot="{ inputValue, inputEvents }">
         <input
             v-on="inputEvents"
@@ -23,13 +18,12 @@
         />
       </template>
     </vc-date-picker>
-    <div v-if="this.examdate.startDate!==null">
+    <div v-if="this.examdate.startDate!==''">
       <h5 class="d-flex justify-content-center">End date and time of your exam</h5>
       <vc-date-picker
           v-model="examdate.endDate"
-          :model-config="modelConfig"
-          :disabled-dates='[{start: new Date(2021, 1, 10),end: new Date(2021, 1, 10)}]'
-          :min-date='examdate.startDate' class="d-flex justify-content-center" is24hr mode="dateTime"
+          :min-date='examdate.startDate'
+          :model-config="modelConfig" class="d-flex justify-content-center" is24hr mode="dateTime"
           @input="setDate">
         <template v-slot="{ inputValue, inputEvents }">
           <input
@@ -60,15 +54,7 @@ export default {
       modelConfig: {
         type: 'string',
         mask: 'YYYY-MM-DD HH:MM:SS', // Uses 'iso' if missing
-      },
-      forbiddenDates: ['Fri Feb 12 2021 16:00:00 GMT+0300 (GMT+03:00)',
-        'Fri Feb 12 2021 15:00:00 GMT+0300 (GMT+03:00)',
-        'Fri Feb 12 2021 14:00:00 GMT+0300 (GMT+03:00)',
-        'Fri Feb 12 2021 17:00:00 GMT+0300 (GMT+03:00)',
-        'Mon Feb 15 2021 10:00:00 GMT+0300 (GMT+03:00)',
-        'Mon Feb 15 2021 11:00:00 GMT+0300 (GMT+03:00)',
-        'Mon Feb 15 2021 12:00:00 GMT+0300 (GMT+03:00)',
-        'Mon Feb 15 2021 13:00:00 GMT+0300 (GMT+03:00)']
+      }
     }
   },
   props: {

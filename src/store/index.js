@@ -26,10 +26,10 @@ const getDefaultState = () => {
 
 const state = {
     user: null,
-    secret:null,
+    secret: null,
     exams: [],
-    oldExams:[],
-    futureExams:[],
+    oldExams: [],
+    futureExams: [],
     createdExam: {},
     createdQuestions: {},
     examToTake: {
@@ -52,7 +52,7 @@ const getters = {
     isAuthenticated: state => !!state.user
 };
 const mutations = {
-    setUser(state,user) {
+    setUser(state, user) {
 
         state.user = user;
     },
@@ -82,7 +82,6 @@ const mutations = {
     pushToQuestionList(state, question) {
         question.exam_id = state.createdExam.exam_id;
         question.teacher_id = state.user.user_id;
-        console.log(question)
         state.examToCreate.questions.push(question);
     },
     resetAnswerList(state) {
@@ -99,13 +98,13 @@ const mutations = {
     }
 };
 const actions = {
-    async login({commit},inputObj){
-        const data = await api.post('login',inputObj.input).catch((error)=>{
+    async login({commit}, inputObj) {
+        const res = await api.post('login', inputObj.input).catch((error) => {
             return error.response
         })
-        //console.log(data);
-        commit('setUser',data.data)
-        return data;
+        if (res.status === 200)
+            commit('setUser', res.data)
+        return res;
     },
     resetStorageState({commit}) {
         commit('resetState')
@@ -133,10 +132,10 @@ const actions = {
         }
     },
     async postQuestions({commit, state}) {
-        const {data} = await api.post(`exams/${state.createdExam.exam_id}/questions`, state.examToCreate.questions);
-        if (data) {
-            commit('setCreatedQuestions', data);
-            return data;
+        const res = await api.post(`exams/${state.createdExam.exam_id}/questions`, state.examToCreate.questions);
+        if (res.data) {
+            commit('setCreatedQuestions', res.data);
+            return res;
         }
     },
     async getQuestions({state}) {

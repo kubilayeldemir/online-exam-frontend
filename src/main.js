@@ -46,26 +46,25 @@ const router = new Router({
     mode: 'history',
     base: __dirname,
     routes: [
-        {path: '/login', component: Login, name: "Login", props: true, meta: { guest: true }},
-        {path: '/', component: Homepage, name: "Homepage", props: true, meta: { requiresAuth: true }},
-        {path: '/examoptions', component: ExamOptions, name: "ExamOptions", props: true, meta: { requiresAuth: true }},
-        {path: '/exams', component: ExamsPanel, name: "Exams", props: true, meta: { requiresAuth: true }},
-        {path: '/examcreate', component: ExamCreate, name: "ExamCreate", props: true, meta: { requiresAuth: true }},
-        {path: '/exampage', component: ExamPage, name: "ExamPage", props: true, meta: { requiresAuth: true }},
-        {path: '/exam/:url', component: ExamURLPage, name: "ExamURLPage", props: true, meta: { requiresAuth: true}}
+        {path: '/login', component: Login, name: "Login", props: true, meta: {guest: true}},
+        {path: '/', component: Homepage, name: "Homepage", props: true, meta: {requiresAuth: true}},
+        {path: '/examoptions', component: ExamOptions, name: "ExamOptions", props: true, meta: {requiresAuth: true}},
+        {path: '/exams', component: ExamsPanel, name: "Exams", props: true, meta: {requiresAuth: true}},
+        {path: '/examcreate', component: ExamCreate, name: "ExamCreate", props: true, meta: {requiresAuth: true}},
+        {path: '/exampage', component: ExamPage, name: "ExamPage", props: true, meta: {requiresAuth: true}},
+        {path: '/exam/:url', component: ExamURLPage, name: "ExamURLPage", props: true, meta: {requiresAuth: true}}
     ]
 });
 
-router.beforeEach((to,from,next)=>{
-    if(to.matched.some(record => record.meta.requiresAuth)){
-        if(store.getters.isAuthenticated){
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (store.getters.isAuthenticated) {
             next()
             return
         }
         localStorage.setItem('pathToLoadAfterLogin', to.path)
-        console.log(to);
         next('/login')
-    } else{
+    } else {
         next()
     }
 })

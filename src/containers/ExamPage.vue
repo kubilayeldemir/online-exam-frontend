@@ -49,7 +49,8 @@ export default {
                 'Your answers has been sent.',
                 'success'
             )
-            console.log(res);
+            res;
+
           }).catch(err => {
             if (err.response.status !== 200) {
               Swal.fire(

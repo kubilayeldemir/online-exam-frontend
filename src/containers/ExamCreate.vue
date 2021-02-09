@@ -3,7 +3,12 @@
 
     <Sidebar></Sidebar>
     <div class="jumbotron">
-      <h1 class="display-4">Exam: {{ examisim }}</h1>
+      <h2>Exam: {{ examToCreate.name }}</h2>
+      <h3>Lesson: {{ examToCreate.lesson }}</h3>
+      <h3>{{ examToCreate.startdate }} <span>-{{ examToCreate.enddate }}</span></h3>
+      <h3 style=""></h3>
+
+
       <p class="lead"></p>
       <hr class="my-4">
 
@@ -13,8 +18,10 @@
       <question v-for="index in examToCreate.questionNumber" :key="index" ref="questions" :index="index"></question>
     </div>
     <!--<button @click="printRef">Ref print ve sıfırla</button>-->
-    <button @click="sendExam">Create Exam And Post questions.</button>
-    <button @click="sendQuestions">Post questions.</button>
+    <button class="btn btn-primary btn-lg" style="float:right;margin-right: 15%" @click="createExamPostQuestions">Create
+      Exam
+    </button>
+    <!--    <button @click="sendQuestions">Post questions.</button>-->
 
     <!--    <p class="lead">-->
     <!--      <router-link :to="{name:'Succesfull'}"-->
@@ -33,6 +40,7 @@
 import Question from "@/components/Question";
 import Sidebar from "@/components/Sidebar";
 import {mapState} from "vuex";
+import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -41,11 +49,13 @@ export default {
     }
   },
   computed: {
-    ...mapState(["examToCreate"])
+    ...mapState(["examToCreate", "createdExam"])
   },
   methods: {
-    createExamPostQuestions() {
-
+    async createExamPostQuestions() {
+      await this.sendExam();
+      var res = await this.sendQuestions();
+      this.finalAlert(res)
     },
     printRef() {
       this.$store.dispatch("resetStorageState");
@@ -59,8 +69,34 @@ export default {
       for (let i = 0; i < this.$refs.questions.length; i++) {
         this.$refs.questions[i].pushQuestion();
       }
-      console.log(this.examToCreate)
-      await this.$store.dispatch("postQuestions")
+      var questions = await this.$store.dispatch("postQuestions")
+      return questions
+    },
+    finalAlert(response) {
+      if (response.status === 200) {
+        Swal.fire({
+          title: 'Success',
+          text: "Exam has been created",
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Go to Homepage',
+          showCancelButton: true,
+          cancelButtonColor: '#fc0',
+          cancelButtonText: 'Show Exam'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.$router.push('/')
+          } else {
+            this.$router.push(`/exam/` + this.createdExam.url)
+          }
+        })
+      } else {
+        Swal.fire(
+            'Error!',
+            "Sorry, We couldn't create exam...",
+            'error'
+        )
+      }
     }
   },
   props: {

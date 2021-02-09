@@ -7,6 +7,7 @@
         {{ exam.enddate | moment("d, MMM  YYYY,h:mm") }}</h5>
       <h5>Lesson: {{ exam.lesson }}</h5>
       <h5>Teacher: {{ exam.teacher_name }} {{ exam.teacher_surname }}</h5>
+      <h5>Exam URL: {{ websiteURL() }}exam/{{ this.url || exam.url }}</h5>
       <p class="lead"></p>
       <hr class="my-4">
     </div>
@@ -15,7 +16,7 @@
         Take Exam!
       </a>
     </router-link>
-    {{ this.url }}
+
   </div>
 </template>
 
@@ -33,6 +34,9 @@ export default {
     url: String
   },
   methods: {
+    websiteURL() {
+      return process.env.VUE_APP_WEBSITE_URL;
+    },
     async getExamByURL(URL) {
       let e = await this.$store.dispatch('getExamByURL', URL);
       this.exam = e[0];

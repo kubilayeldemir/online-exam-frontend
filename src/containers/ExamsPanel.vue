@@ -13,17 +13,17 @@
     </div>
 
     <b-button v-b-toggle="'collapse-2'" class="m-1">Future Exams</b-button>
-    <b-collapse style="" id="collapse-2">
+    <b-collapse id="collapse-2" style="">
       <div v-for="exam in futureExams" :key="exam.exam_id">
-        <Exam :is-active="false" :exam="exam"></Exam>
+        <Exam :exam="exam" :is-active="false"></Exam>
         <br>
       </div>
     </b-collapse>
-<br>
-    <b-button v-b-toggle="'collapse-3'" class="m-1">Old Exams</b-button>
-    <b-collapse style="" id="collapse-3">
+    <br>
+    <b-button v-b-toggle="'collapse-3'" class="m-1">Past Exams</b-button>
+    <b-collapse id="collapse-3" style="">
       <div v-for="exam in oldExams" :key="exam.exam_id">
-        <Exam :is-active="false" :exam="exam"></Exam>
+        <Exam :exam="exam" :is-active="false"></Exam>
         <br>
       </div>
     </b-collapse>
