@@ -45,6 +45,10 @@
           <a href="#">Contact</a>
 
         </li>
+        <li>
+          <a @click.prevent="logoutRequest" href="#">Logout</a>
+
+        </li>
       </ul>
 
 
@@ -65,7 +69,7 @@
 <script>
 
 
-import {mapState} from "vuex";
+import {mapMutations, mapState} from "vuex";
 
 export default {
   data() {
@@ -81,6 +85,13 @@ export default {
     ...mapState(['user'])
   },
   methods: {
+    ...mapMutations([
+      "logout"
+    ]),
+    logoutRequest(){
+      this.logout()
+      location.reload();
+    },
     goCreateExam() {
       this.isHome = false;
       this.isExamCreate = true

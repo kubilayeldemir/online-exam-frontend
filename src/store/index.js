@@ -10,16 +10,7 @@ const getDefaultState = () => {
         user: null,
         exams: [],
         createdExam: {},
-        examToCreate: {
-            exam_id: 30,
-            teacher_id: 2,
-            name: "",
-            lesson: "",
-            startdate: "",
-            enddate: "",
-            questionNumber: 0,
-            questions: []
-        }
+        examToCreate: {}
     }
 }
 
@@ -58,6 +49,9 @@ const mutations = {
     },
     resetState(state) {
         Object.assign(state, getDefaultState())
+    },
+    logout(state){
+      state.user=null;
     },
     setExam(state, examJson) {
         state.exams = examJson.active_exams;
