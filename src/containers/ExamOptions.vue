@@ -18,7 +18,7 @@
           <span id="inputGroup-sizing-default" class="input-group-text">Exam Name:</span>
         </div>
         <input v-model="exam.name" aria-describedby="inputGroup-sizing-default" aria-label="Sizing example input"
-               class="form-control"
+               class="form-control examName"
                type="text"
                @change="setOptions">
       </div>
@@ -31,7 +31,7 @@
           <span id="inputGroup-sizing-default" class="input-group-text">Lesson:</span>
         </div>
         <input v-model="exam.lesson" aria-describedby="inputGroup-sizing-default" aria-label="Sizing example input"
-               class="form-control"
+               class="form-control examLesson"
                type="text"
                @change="setOptions">
       </div>
@@ -46,7 +46,7 @@
     <p class="lead">
       <router-link :to="{name:'ExamCreate',params:{examName : exam.name}}"
                    style="color: aliceblue;text-decoration: none">
-        <a class="btn btn-primary btn-lg" role="button" style="float: right;">
+        <a class="btn btn-primary btn-lg nextStepButton" role="button" style="float: right;">
           Next step
         </a>
       </router-link>

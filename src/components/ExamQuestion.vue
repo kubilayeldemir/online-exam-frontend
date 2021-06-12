@@ -7,23 +7,23 @@
 
     <b-form-group v-slot="{ ariaDescribedby }" label="Options:">
       <b-form-radio v-model="answer.selected_option" :aria-describedby="ariaDescribedby" :name="'radio'+index"
-                    class="inputBox" value="A">
+                    class="inputBox" :class="'choice'+'A'" value="A">
         <p>{{ question.option_1 }}</p>
       </b-form-radio>
       <b-form-radio v-model="answer.selected_option" :aria-describedby="ariaDescribedby" :name="'radio'+index"
-                    class="inputBox" value="B">
+                    class="inputBox" :class="'choice'+'B'" value="B">
         <p>{{ question.option_2 }}</p>
       </b-form-radio>
       <b-form-radio v-model="answer.selected_option" :aria-describedby="ariaDescribedby" :name="'radio'+index"
-                    class="inputBox" value="C">
+                    class="inputBox" :class="'choice'+'C'" value="C">
         <p>{{ question.option_3 }}</p>
       </b-form-radio>
       <b-form-radio v-model="answer.selected_option" :aria-describedby="ariaDescribedby" :name="'radio'+index"
-                    class="inputBox" value="D">
+                    class="inputBox" :class="'choice'+'D'" value="D">
         <p>{{ question.option_4 }}</p>
       </b-form-radio>
       <b-form-radio v-model="answer.selected_option" :aria-describedby="ariaDescribedby" :name="'radio'+index"
-                    class="inputBox" value="E">
+                    class="inputBox" :class="'choice'+'E'" value="E">
         <p>{{ question.option_5 }}</p>
       </b-form-radio>
     </b-form-group>

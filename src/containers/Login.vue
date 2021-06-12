@@ -6,18 +6,18 @@
         <div class="input-group-prepend">
           <span id="basic-addon1" class="input-group-text">Mail</span>
         </div>
-        <input v-model="input.mail" aria-describedby="basic-addon1" aria-label="Username" class="form-control"
+        <input v-model="input.mail" aria-describedby="basic-addon1" aria-label="Username" class="form-control loginMail"
                placeholder="ogretmen@ege.edu.tr" type="text">
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span id="basic-addon1" class="input-group-text">Password </span>
         </div>
-        <input v-model="input.password" aria-describedby="basic-addon1" aria-label="Username" class="form-control"
+        <input v-model="input.password" aria-describedby="basic-addon1" aria-label="Username" class="form-control loginPassword"
                placeholder="Password" type="password" v-on:keyup.enter="login()">
       </div>
       <div style="color: aliceblue;text-decoration: none">
-        <button class="btn btn-light" style="margin-left: 200px" type="button" v-on:click="login()">Login</button>
+        <button class="btn btn-light login" style="margin-left: 200px" type="button" v-on:click="login()">Login</button>
       </div>
 
 

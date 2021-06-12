@@ -15,7 +15,7 @@
 
         </b-card-text>
         <router-link v-if="isActive" :to="{name:'ExamPage',params:{examId : this.exam.exam_id, Exam:exam}}">
-          <a   class="btn btn-primary btn-lg" role="button" @click="setExamId(exam.exam_id)" style="float: right;">
+          <a class="btn btn-primary btn-lg takeExam" :class="'takeExam'+this.exam.exam_id" role="button" @click="setExamId(exam.exam_id)" style="float: right;">
             Take Exam!
           </a>
         </router-link>

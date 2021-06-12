@@ -18,7 +18,7 @@
       <question v-for="index in examToCreate.questionNumber" :key="index" ref="questions" :index="index"></question>
     </div>
     <!--<button @click="printRef">Ref print ve sıfırla</button>-->
-    <button class="btn btn-primary btn-lg" style="float:right;margin-right: 15%" @click="createExamPostQuestions">Create
+    <button class="btn btn-primary btn-lg createExam" style="float:right;margin-right: 15%" @click="createExamPostQuestions">Create
       Exam
     </button>
     <!--    <button @click="sendQuestions">Post questions.</button>-->

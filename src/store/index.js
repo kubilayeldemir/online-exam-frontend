@@ -65,6 +65,7 @@ const mutations = {
         state.createdExam = exam;
     },
     setExamOptions(state, exam) {
+        state.examToCreate.teacher_id = state.user.user_id;
         state.examToCreate.name = exam.name;
         state.examToCreate.lesson = exam.lesson;
         state.examToCreate.questionNumber = exam.questionNumber;

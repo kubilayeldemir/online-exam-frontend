@@ -13,7 +13,7 @@
         <input
             v-on="inputEvents"
             :value="inputValue"
-            class="px-2 py-1 border rounded focus:outline-none focus:border-blue-300"
+            class="px-2 py-1 border rounded focus:outline-none focus:border-blue-300 startDate"
 
         />
       </template>
@@ -29,8 +29,7 @@
           <input
               v-on="inputEvents"
               :value="inputValue"
-              class="px-2 py-1 border rounded focus:outline-none focus:border-blue-300"
-
+              class="px-2 py-1 border rounded focus:outline-none focus:border-blue-300 endDate"
           />
         </template>
       </vc-date-picker>

@@ -11,18 +11,17 @@
 
       <ul class="list-unstyled components">
         <p>Welcome to Quick Exams</p>
-        <li :class="{ active: isHome }">
-
+        <li class="homeButton" :class="{ active: isHome }">
           <a aria-expanded="false" class="" data-toggle="collapse" @click="isExamCreate=true">
             <router-link :to="{name:'Homepage'}">Home</router-link>
           </a>
         </li>
-        <li v-if="user.usertype!==2" :class="{ active: isExamCreate }" @click="goCreateExam">
+        <li class="createExam" v-if="user.usertype!==2" :class="{ active: isExamCreate }" @click="goCreateExam">
           <a href="#">
             <router-link :to="{name:'ExamOptions'}">Create Exams</router-link>
           </a>
         </li>
-        <li>
+        <li class="examsButton">
           <a aria-expanded="false" class="" data-toggle="collapse" href="#pageSubmenu">
             <router-link :to="{name:'Exams'}">Exams</router-link>
           </a>
@@ -43,11 +42,9 @@
         </li>
         <li>
           <a href="#">Contact</a>
-
         </li>
         <li>
           <a @click.prevent="logoutRequest" href="#">Logout</a>
-
         </li>
       </ul>
 
